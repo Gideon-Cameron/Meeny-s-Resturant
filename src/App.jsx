@@ -2,6 +2,7 @@
 import Navbar from "./Components/Navbar";
 import Hero from "./Components/Hero";
 import About from "./Components/About";
+import Services from "./Components/Services";
 import Work from "./Components/Work";
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
       {/* Hero / About Section */}
       <Hero />
       <About />
+      <Services />
       <Work />
 
       {/*
