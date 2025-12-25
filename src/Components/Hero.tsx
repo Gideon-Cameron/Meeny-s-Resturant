@@ -1,63 +1,52 @@
-// Hero.jsx
 import React from "react";
-import Profile from "../assets/Profile.png";
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
-    <section className="w-full bg-slate-50 min-h-screen flex items-center">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
-        
-        {/* Left: Image (40%) */}
-        <div className="md:col-span-2 flex justify-center items-center">
-          <img
-            src={Profile}
-            alt="Joshua profile"
-            className="w-80 max-w-full h-auto rounded-2xl shadow-xl"
-          />
-        </div>
+    <section className="relative flex items-center justify-center px-6 py-32 font-manrope">
+      <div className="mx-auto max-w-4xl text-center">
+        {/* Main headline */}
+        <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
+          I turn your ideas into{" "}
+          <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
+            cinematic videos
+          </span>
+        </h1>
 
-        {/* Right: Text (60%) */}
-        <div className="md:col-span-3 text-slate-800">
-          {/* Main Headline */}
-          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-teal-700">
-            I help turn your ideas into cinematic videos that hook your audience,
-            build brand trust, and make them buy.
-          </h1>
+        {/* Supporting text */}
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl">
+          Helping brands hook their audience, build trust, and drive real
+          results through high-impact video content.
+        </p>
 
-          {/* Name */}
-          <h2 className="mt-5 font-display text-xl font-semibold text-rose-500 tracking-wide">
-            Joshua
-          </h2>
-
-          {/* Description */}
-          <p className="mt-4 text-slate-600 leading-relaxed">
-            Turning your vision into a story brand that hooks your audience
-            through script writing and hero videos featuring your customers’
-            success journey.
-          </p>
-
-          <p className="mt-4 text-slate-600 leading-relaxed">
-            Most brands are invisible because they sound like everyone else. I
-            help <span className="italic">[you’ll fill this in]</span> bridge the
-            gap between their technical brilliance and their audience’s emotions.
-            By combining strategic scriptwriting with cinematic hero films, I
-            build{" "}
-            <span className="font-medium text-teal-600">
-              “Narrative Infrastructure”
-            </span>{" "}
-            that turns skeptical observers into loyal champions. I don’t just
-            edit clips; I architect the stories that win markets.
-          </p>
-
-          {/* CTA */}
-          <div className="mt-6">
-            <a
-              href="#contact"
-              className="inline-block px-8 py-3 border-2 border-rose-500 text-rose-500 font-semibold rounded-full hover:bg-rose-500 hover:text-white transition-colors duration-300"
+        {/* CTA buttons */}
+        <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          {/* Primary CTA */}
+          <a
+            href="#contact"
+            className="group inline-flex items-center justify-center gap-3 rounded-lg bg-indigo-400 px-9 py-4 text-lg font-medium text-white shadow-md transition-all duration-200 hover:bg-indigo-500 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2"
+          >
+            Get in Touch
+            <svg
+              className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              Contact Me
-            </a>
-          </div>
+              <path d="M5 12h14" />
+              <path d="M13 5l7 7-7 7" />
+            </svg>
+          </a>
+
+          {/* Secondary CTA */}
+          <a
+            href="#work"
+            className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-9 py-4 text-lg font-medium text-slate-700 transition-all duration-200 hover:border-slate-400 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2"
+          >
+            View My Work
+          </a>
         </div>
       </div>
     </section>
