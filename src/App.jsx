@@ -5,6 +5,7 @@ import Hero from "./Components/Hero";
 import About from "./Components/About";
 import Show from "./Components/Show";
 import Contact from "./Components/Contact";
+import CartPopup from "./Components/CartPopup";
 
 import Menu from "./pages/Menu";
 import { CartProvider } from "./context/CartContext";
@@ -37,6 +38,14 @@ const App = () => {
           {/* <Route path="/help" element={<Help />} /> */}
         </Routes>
       </div>
+
+      <CartProvider>
+  <div className="min-h-screen w-full bg-white">
+    <Navbar />
+    <Routes>...</Routes>
+    <CartPopup />
+  </div>
+</CartProvider>
     </CartProvider>
   );
 };
