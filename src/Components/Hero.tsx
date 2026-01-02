@@ -1,9 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/Hero.jpg";
 import popupImage from "../assets/Popup.jpg";
 
 const Hero: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const goToMenu = (orderType?: "delivery" | "pickup") => {
+    setIsModalOpen(false);
+
+    if (orderType) {
+      navigate("/menu", {
+        state: { orderType },
+      });
+    } else {
+      navigate("/menu");
+    }
+  };
 
   return (
     <>
@@ -11,7 +25,6 @@ const Hero: React.FC = () => {
       <section className="w-full bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            
             {/* LEFT: TEXT */}
             <div>
               <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
@@ -25,7 +38,7 @@ const Hero: React.FC = () => {
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="mt-8 inline-flex items-center justify-center rounded-md bg-green-600 px-8 py-3 text-base font-semibold text-white hover:bg-green-700 transition-colors"
+                className="mt-8 inline-flex items-center justify-center rounded-md bg-green-600 px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-green-700"
               >
                 Order Now
               </button>
@@ -79,31 +92,62 @@ const Hero: React.FC = () => {
               </h2>
 
               <div className="mt-6 space-y-4">
-                {/* BUTTON TEMPLATE */}
-                {[
-                  "ORDER FOR DELIVERY",
-                  "CLICK & COLLECT",
-                  "BROWSE MENU",
-                ].map((label) => (
-                  <button
-                    key={label}
-                    className="group flex w-full items-center justify-between rounded-md bg-yellow-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-yellow-600"
+                <button
+                  onClick={() => goToMenu("delivery")}
+                  className="group flex w-full items-center justify-between rounded-md bg-yellow-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-yellow-600"
+                >
+                  <span>ORDER FOR DELIVERY</span>
+                  <svg
+                    className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
-                    <span>{label}</span>
-                    <svg
-                      className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M5 12h14" />
-                      <path d="M13 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                ))}
+                    <path d="M5 12h14" />
+                    <path d="M13 5l7 7-7 7" />
+                  </svg>
+                </button>
+
+                <button
+                  onClick={() => goToMenu("pickup")}
+                  className="group flex w-full items-center justify-between rounded-md bg-yellow-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-yellow-600"
+                >
+                  <span>CLICK & COLLECT</span>
+                  <svg
+                    className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M13 5l7 7-7 7" />
+                  </svg>
+                </button>
+
+                <button
+                  onClick={() => goToMenu()}
+                  className="group flex w-full items-center justify-between rounded-md bg-yellow-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-yellow-600"
+                >
+                  <span>BROWSE MENU</span>
+                  <svg
+                    className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 12h14" />
+                    <path d="M13 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
