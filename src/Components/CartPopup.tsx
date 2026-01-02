@@ -1,31 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useCart } from "../context/CartContext";
+import { MenuItem } from "../data/menu";
 
 const CartPopup: React.FC = () => {
-  const { items, total, clearCart } = useCart();
-  const [open, setOpen] = useState(false);
+  const {
+    items,
+    total,
+    isOpen,
+    closeCart,
+    clearCart,
+    removeItem,
+  } = useCart();
 
-  // Auto-open popup when items are added
-  useEffect(() => {
-    if (items.length > 0) {
-      console.log("🛒 Cart updated:", items);
-      console.log("💰 New total:", total);
-      setOpen(true);
-    }
-  }, [items, total]);
+  // Do not render if popup is closed or cart empty
+  if (!isOpen || items.length === 0) return null;
 
-  // Do not render if cart is empty or popup closed
-  if (items.length === 0 || !open) return null;
+  /* ======================
+     GROUP ITEMS BY ID
+  ====================== */
+  const groupedItems = items.reduce<Record<string, { item: MenuItem; qty: number }>>(
+    (acc, item) => {
+      if (!acc[item.id]) {
+        acc[item.id] = { item, qty: 1 };
+      } else {
+        acc[item.id].qty += 1;
+      }
+      return acc;
+    },
+    {}
+  );
 
-  const handleClose = () => {
-    console.log("❌ Cart popup closed");
-    setOpen(false);
-  };
+  const handleConfirm = () => {
+    console.log("✅ Order confirmed:", groupedItems);
+    console.log("💰 Final total:", total);
 
-  const handleClear = () => {
-    console.log("🧹 Cart cleared");
+    // Later: send to Firebase here
     clearCart();
-    setOpen(false);
+    closeCart();
   };
 
   return (
@@ -33,7 +44,7 @@ const CartPopup: React.FC = () => {
       {/* BACKDROP */}
       <div
         className="absolute inset-0"
-        onClick={handleClose}
+        onClick={closeCart}
       />
 
       {/* POPUP */}
@@ -41,11 +52,11 @@ const CartPopup: React.FC = () => {
         {/* HEADER */}
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xl font-bold text-gray-900">
-            Your Order
+            Confirm Your Order
           </h2>
 
           <button
-            onClick={handleClose}
+            onClick={closeCart}
             className="text-gray-500 hover:text-gray-800"
             aria-label="Close cart"
           >
@@ -55,13 +66,30 @@ const CartPopup: React.FC = () => {
 
         {/* ITEMS */}
         <ul className="max-h-64 space-y-3 overflow-y-auto">
-          {items.map((item) => (
+          {Object.values(groupedItems).map(({ item, qty }) => (
             <li
               key={item.id}
-              className="flex justify-between border-b pb-2 text-gray-800"
+              className="flex items-center justify-between border-b pb-2 text-gray-800"
             >
-              <span>{item.name}</span>
-              <span className="font-semibold">£{item.price}</span>
+              <div>
+                <div className="font-medium">{item.name}</div>
+                <div className="text-sm text-gray-500">
+                  £{item.price} × {qty}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <span className="font-semibold">
+                  £{item.price * qty}
+                </span>
+                <button
+                  onClick={() => removeItem(item.id)}
+                  className="text-sm text-red-500 hover:text-red-700"
+                  aria-label="Remove one item"
+                >
+                  ✕
+                </button>
+              </div>
             </li>
           ))}
         </ul>
@@ -75,14 +103,14 @@ const CartPopup: React.FC = () => {
         {/* ACTIONS */}
         <div className="mt-6 space-y-3">
           <button
-            className="w-full rounded-lg bg-green-600 py-3 font-semibold text-white opacity-60"
-            disabled
+            onClick={handleConfirm}
+            className="w-full rounded-lg bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700"
           >
-            Checkout (next step)
+            Confirm Order
           </button>
 
           <button
-            onClick={handleClear}
+            onClick={clearCart}
             className="w-full text-sm font-medium text-red-600 hover:underline"
           >
             Clear Cart

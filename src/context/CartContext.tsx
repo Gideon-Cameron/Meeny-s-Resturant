@@ -31,27 +31,20 @@ import React, {
      CONTEXT
   ====================== */
   
-  const CartContext = createContext<CartContextType | undefined>(
-    undefined
-  );
+  const CartContext = createContext<CartContextType | undefined>(undefined);
   
   /* ======================
      PROVIDER
   ====================== */
   
-  export const CartProvider = ({
-    children,
-  }: {
-    children: ReactNode;
-  }) => {
+  export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [items, setItems] = useState<MenuItem[]>([]);
     const [isOpen, setIsOpen] = useState(false);
   
     /* ---------- ADD ITEM ---------- */
     const addItem = (item: MenuItem) => {
       setItems((prev) => [...prev, item]);
-  
-      console.log("➕ Added item:", item);
+      console.log("➕ Added item:", item.name);
     };
   
     /* ---------- REMOVE ONE ITEM ---------- */
@@ -120,9 +113,7 @@ import React, {
     const context = useContext(CartContext);
   
     if (!context) {
-      throw new Error(
-        "useCart must be used within a CartProvider"
-      );
+      throw new Error("useCart must be used within a CartProvider");
     }
   
     return context;
