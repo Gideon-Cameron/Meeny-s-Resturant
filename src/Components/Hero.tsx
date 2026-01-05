@@ -28,12 +28,13 @@ const Hero: React.FC = () => {
             {/* LEFT: TEXT */}
             <div>
               <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
-                Lorem Ipsum Dolor Sit Amet
+              Meeny’s Kitchen & Grill
               </h1>
 
               <p className="mt-4 max-w-xl text-lg text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Introducing Meeny’s — where authenticity meets flavour! 🍲
+              A true Blasian fusion of Caribbean spice and Asian soul, crafted with love and passion.
+              Follow us on our journey as we bring the taste of home-cooked goodness to your plate.
               </p>
 
               <button
