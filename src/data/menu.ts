@@ -1,5 +1,9 @@
 // src/data/menu.ts
 
+import box1 from "../assets/box1.jpg";
+import box2 from "../assets/box2.jpg";
+import box3 from "../assets/box3.jpg";
+
 export type MenuItemType = "box" | "main" | "side" | "drink";
 
 export interface MenuItem {
@@ -21,7 +25,7 @@ export const boxes: MenuItem[] = [
     name: "Hot Honey Blasian Box",
     price: 15,
     type: "box",
-    image: "/assets/box1.jpg",
+    image: box1,
     includes: [
       "Hot Honey Garlic Chicken Wings",
       "Chicken Biriyani",
@@ -36,7 +40,7 @@ export const boxes: MenuItem[] = [
     name: "Blasian Box",
     price: 15,
     type: "box",
-    image: "/assets/box2.jpg",
+    image: box2,
     includes: [
       "Curry Chicken",
       "Chicken Biriyani",
@@ -52,7 +56,7 @@ export const boxes: MenuItem[] = [
     name: "Tandoori Blasian Box",
     price: 15,
     type: "box",
-    image: "/assets/box3.jpg",
+    image: box3,
     includes: [
       "Tandoori Chicken Wings",
       "Lamb Biriyani",
@@ -101,7 +105,12 @@ export const sides: MenuItem[] = [
   { id: "side-coleslaw", name: "Coleslaw", price: 2, type: "side" },
   { id: "side-corn", name: "Corn on the Cob", price: 3, type: "side" },
   { id: "side-dumplings", name: "Fried Dumplings", price: 3, type: "side" },
-  { id: "side-spring-rolls", name: "Vegetable Spring Rolls", price: 3, type: "side" },
+  {
+    id: "side-spring-rolls",
+    name: "Vegetable Spring Rolls",
+    price: 3,
+    type: "side",
+  },
 ];
 
 /* =======================
