@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { MenuItem } from "../data/menu";
+import { db } from "../firebase/firebase";
 
+console.log("🔥 Firestore connected:", db);
 const DELIVERY_FEE = 5;
 
 const CartPopup: React.FC = () => {
@@ -30,9 +32,8 @@ const CartPopup: React.FC = () => {
   const [address, setAddress] = useState("");
 
   /**
-   * ✅ CRITICAL FIX
-   * Sync order type when user navigates
-   * (Click & Collect vs Delivery entry)
+   * ✅ Sync order type when user navigates
+   * (Delivery vs Click & Collect entry)
    */
   useEffect(() => {
     setOrderType(navigatedOrderType);
@@ -56,9 +57,24 @@ const CartPopup: React.FC = () => {
   }, {});
 
   /* ======================
+     STANDARDIZED ITEMS
+  ====================== */
+  const orderItems = Object.values(groupedItems).map(
+    ({ item, qty }) => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: qty,
+      lineTotal: item.price * qty,
+    })
+  );
+
+  /* ======================
      TOTALS
   ====================== */
-  const deliveryFee = orderType === "delivery" ? DELIVERY_FEE : 0;
+  const deliveryFee =
+    orderType === "delivery" ? DELIVERY_FEE : 0;
+
   const finalTotal = total + deliveryFee;
 
   /* ======================
@@ -66,17 +82,27 @@ const CartPopup: React.FC = () => {
   ====================== */
   const handleConfirm = () => {
     const orderPayload = {
-      type: orderType,
-      items: groupedItems,
-      subtotal: total,
-      deliveryFee,
-      total: finalTotal,
-      address: orderType === "delivery" ? address : null,
+      createdAt: Date.now(),
+      status: "pending",
+      orderType,
+
+      items: orderItems,
+
+      pricing: {
+        subtotal: total,
+        deliveryFee,
+        total: finalTotal,
+      },
+
+      delivery: {
+        address:
+          orderType === "delivery" ? address : null,
+      },
     };
 
     console.log("✅ Order confirmed:", orderPayload);
 
-    // Later: send to Firebase
+    // 🔜 Firebase write will go here
     clearCart();
     closeCart();
   };
@@ -101,7 +127,9 @@ const CartPopup: React.FC = () => {
 
         {/* ORDER TYPE */}
         <div className="mb-6 space-y-2">
-          <div className="font-medium text-gray-800">Order Type</div>
+          <div className="font-medium text-gray-800">
+            Order Type
+          </div>
 
           <label className="flex items-center gap-2">
             <input
@@ -133,21 +161,23 @@ const CartPopup: React.FC = () => {
 
         {/* ITEMS */}
         <ul className="max-h-64 space-y-3 overflow-y-auto">
-          {Object.values(groupedItems).map(({ item, qty }) => (
+          {orderItems.map((item) => (
             <li
               key={item.id}
               className="flex justify-between border-b pb-2"
             >
               <div>
-                <div className="font-medium">{item.name}</div>
+                <div className="font-medium">
+                  {item.name}
+                </div>
                 <div className="text-sm text-gray-500">
-                  £{item.price} × {qty}
+                  £{item.price} × {item.quantity}
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
                 <span className="font-semibold">
-                  £{item.price * qty}
+                  £{item.lineTotal}
                 </span>
                 <button
                   onClick={() => removeItem(item.id)}
@@ -185,7 +215,8 @@ const CartPopup: React.FC = () => {
           <button
             onClick={handleConfirm}
             disabled={
-              orderType === "delivery" && address.trim() === ""
+              orderType === "delivery" &&
+              address.trim() === ""
             }
             className="w-full rounded-lg bg-green-600 py-3 font-semibold text-white disabled:opacity-50"
           >
