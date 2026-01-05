@@ -39,19 +39,48 @@ import {
   export const createOrder = async (
     payload: CreateOrderPayload
   ) => {
+    console.log("✅ Using correct createOrder runtime");
+  
+    /* ----------------------
+       Normalize items map → array
+    ---------------------- */
+    const normalizedItems = Object.values(payload.items).map(
+      ({ item, qty }) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: qty,
+        lineTotal: item.price * qty,
+        type: item.type,
+      })
+    );
+  
+    /* ----------------------
+       Build order document
+    ---------------------- */
     const orderDoc = {
       type: payload.type,
-      items: payload.items,
+  
+      items: normalizedItems,
+  
       pricing: {
         subtotal: payload.subtotal,
         deliveryFee: payload.deliveryFee,
         total: payload.total,
       },
-      address: payload.address,
+  
+      delivery:
+        payload.type === "delivery"
+          ? { address: payload.address }
+          : null,
   
       status: "active", // active | completed
+  
       createdAt: serverTimestamp(),
       completedAt: null,
+  
+      // Firestore TTL (48 hours)
+      expiresAt: new Date(Date.now() + 48 * 60 * 60 * 1000),
   
       // Useful later for analytics / filtering
       source: "web",
