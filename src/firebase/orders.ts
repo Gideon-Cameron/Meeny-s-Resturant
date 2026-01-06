@@ -24,6 +24,9 @@ import {
     deliveryFee: number;
     total: number;
     address: string | null;
+  
+    // ✅ NEW (optional)
+    phone?: string | null;
   }
   
   /* ======================
@@ -74,6 +77,11 @@ import {
           ? { address: payload.address }
           : null,
   
+      // ✅ NEW: notification preferences
+      notification: {
+        phone: payload.phone ?? null,
+      },
+  
       status: "active", // active | completed
   
       createdAt: serverTimestamp(),
@@ -82,7 +90,6 @@ import {
       // Firestore TTL (48 hours)
       expiresAt: new Date(Date.now() + 48 * 60 * 60 * 1000),
   
-      // Useful later for analytics / filtering
       source: "web",
     };
   

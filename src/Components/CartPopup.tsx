@@ -29,6 +29,7 @@ const CartPopup: React.FC = () => {
     useState<"pickup" | "delivery">(navigatedOrderType);
 
   const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState(""); // ✅ NEW
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   /**
@@ -77,6 +78,9 @@ const CartPopup: React.FC = () => {
         deliveryFee,
         total: finalTotal,
         address: orderType === "delivery" ? address : null,
+
+        // ✅ NEW: optional phone
+        phone: phone.trim() || null,
       });
 
       clearCart();
@@ -140,6 +144,20 @@ const CartPopup: React.FC = () => {
               className="mt-2 w-full rounded border px-3 py-2 text-sm"
             />
           )}
+        </div>
+
+        {/* OPTIONAL PHONE */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-800 mb-1">
+            Phone number (optional)
+          </label>
+          <input
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Add a phone number to be notified when your order is ready"
+            className="w-full rounded border px-3 py-2 text-sm"
+          />
         </div>
 
         {/* ITEMS */}
