@@ -38,23 +38,23 @@ const Hero: React.FC = () => {
               </p>
 
               <button
-  onClick={() => setIsModalOpen(true)}
-  className="group mt-8 inline-flex items-center justify-center gap-3 rounded-md bg-green-600 px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-green-700"
->
-  <span>Order Now</span>
-  <svg
-    className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M5 12h14" />
-    <path d="M13 5l7 7-7 7" />
-  </svg>
-</button>
+               onClick={() => setIsModalOpen(true)}
+                className="group mt-8 inline-flex items-center justify-center gap-3 rounded-md bg-green-600 px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-green-700"
+              >
+              <span>Order Now</span>
+              <svg
+                className="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+              <path d="M5 12h14" />
+              <path d="M13 5l7 7-7 7" />
+              </svg>
+              </button>
 
             </div>
 
