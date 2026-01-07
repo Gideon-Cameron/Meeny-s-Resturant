@@ -7,6 +7,7 @@ import Show from "./Components/Show";
 import Contact from "./Components/Contact";
 import CartPopup from "./Components/CartPopup";
 import CartBar from "./Components/CartBar";
+import Location from "./Components/Location";
 
 import Menu from "./pages/Menu";
 
@@ -17,7 +18,7 @@ const App = () => {
   return (
     <CartProvider>
       <OrderProvider>
-        <div className="min-h-screen w-full bg-white pb-20">
+        <div className="min-h-screen w-full bg-white">
           {/* Navigation */}
           <Navbar />
 
@@ -30,6 +31,7 @@ const App = () => {
                   <Hero />
                   <About />
                   <Show />
+                  <Location />
                   <Contact />
                 </>
               }

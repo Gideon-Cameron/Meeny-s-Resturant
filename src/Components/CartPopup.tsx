@@ -9,7 +9,6 @@ const DELIVERY_FEE = 5;
 const CartPopup: React.FC = () => {
   const location = useLocation();
 
-  // Read order type from navigation state
   const navigatedOrderType: "pickup" | "delivery" =
     location.state?.orderType ?? "delivery";
 
@@ -22,29 +21,19 @@ const CartPopup: React.FC = () => {
     removeItem,
   } = useCart();
 
-  /* ======================
-     LOCAL ORDER STATE
-  ====================== */
   const [orderType, setOrderType] =
     useState<"pickup" | "delivery">(navigatedOrderType);
 
   const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState(""); // ✅ NEW
+  const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  /**
-   * ✅ Sync order type when user navigates
-   */
   useEffect(() => {
     setOrderType(navigatedOrderType);
   }, [navigatedOrderType]);
 
-  // Do not render if popup is closed or cart empty
   if (!isOpen || items.length === 0) return null;
 
-  /* ======================
-     GROUP ITEMS BY ID
-  ====================== */
   const groupedItems = items.reduce<
     Record<string, { item: MenuItem; qty: number }>
   >((acc, item) => {
@@ -56,15 +45,9 @@ const CartPopup: React.FC = () => {
     return acc;
   }, {});
 
-  /* ======================
-     TOTALS
-  ====================== */
   const deliveryFee = orderType === "delivery" ? DELIVERY_FEE : 0;
   const finalTotal = total + deliveryFee;
 
-  /* ======================
-     CONFIRM ORDER
-  ====================== */
   const handleConfirm = async () => {
     if (isSubmitting) return;
 
@@ -78,8 +61,6 @@ const CartPopup: React.FC = () => {
         deliveryFee,
         total: finalTotal,
         address: orderType === "delivery" ? address : null,
-
-        // ✅ NEW: optional phone
         phone: phone.trim() || null,
       });
 
@@ -100,9 +81,7 @@ const CartPopup: React.FC = () => {
       <div className="relative w-full max-w-md rounded-t-2xl bg-white p-6 shadow-xl sm:rounded-2xl">
         {/* HEADER */}
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900">
-            Confirm Your Order
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900">Confirm Your Order</h2>
           <button
             onClick={closeCart}
             className="text-gray-500 hover:text-gray-800"
@@ -114,9 +93,7 @@ const CartPopup: React.FC = () => {
 
         {/* ORDER TYPE */}
         <div className="mb-6 space-y-2">
-          <div className="font-medium text-gray-800">
-            Order Type
-          </div>
+          <div className="font-medium text-gray-800">Order Type</div>
 
           <label className="flex items-center gap-2">
             <input
@@ -137,12 +114,20 @@ const CartPopup: React.FC = () => {
           </label>
 
           {orderType === "delivery" && (
-            <input
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="Delivery address"
-              className="mt-2 w-full rounded border px-3 py-2 text-sm"
-            />
+            <>
+              {/* ⚠️ Northampton warning */}
+              <div className="mt-2 rounded-md bg-yellow-50 border border-yellow-200 p-3 text-sm text-yellow-800">
+                🚚 Delivery is available <strong>only within Northampton</strong>.
+                Orders outside this area may be cancelled.
+              </div>
+
+              <input
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Delivery address"
+                className="mt-2 w-full rounded border px-3 py-2 text-sm"
+              />
+            </>
           )}
         </div>
 
@@ -175,9 +160,7 @@ const CartPopup: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="font-semibold">
-                  £{item.price * qty}
-                </span>
+                <span className="font-semibold">£{item.price * qty}</span>
                 <button
                   onClick={() => removeItem(item.id)}
                   className="text-red-500 hover:text-red-700"
@@ -215,8 +198,7 @@ const CartPopup: React.FC = () => {
           <button
             onClick={handleConfirm}
             disabled={
-              isSubmitting ||
-              (orderType === "delivery" && address.trim() === "")
+              isSubmitting || (orderType === "delivery" && address.trim() === "")
             }
             className="w-full rounded-lg bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700 disabled:opacity-50"
           >
