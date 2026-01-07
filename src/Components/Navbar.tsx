@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/meenes-logo.png"; // ✅ Import logo
 
 const Navbar = () => {
   return (
@@ -11,8 +12,8 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-2">
               <img
-                src="/assets/favicon.png"
-                alt="Meeny's Kitchen & Grill logo"
+                src={logo}
+                alt="Meeny's Kitchen & Grill Logo"
                 className="h-10 w-auto"
               />
             </Link>
