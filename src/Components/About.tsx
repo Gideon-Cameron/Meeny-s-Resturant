@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import aboutImage from "../assets/About.jpg";
+// import aboutImage from "../assets/About.jpg";
 
 const About: React.FC = () => {
   return (
@@ -9,13 +9,13 @@ const About: React.FC = () => {
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           
           {/* LEFT IMAGE */}
-          <div className="flex justify-center lg:justify-start">
+          {/* <div className="flex justify-center lg:justify-start">
             <img
               src={aboutImage}
               alt="About our food"
               className="w-full max-w-xl rounded-xl object-cover shadow-lg"
             />
-          </div>
+          </div> */}
 
           {/* RIGHT TEXT */}
           <div>

@@ -1,10 +1,10 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 
 export default defineConfig({
-  base: "/", // Netlify-friendly
+  base: "/", // ✅ Suitable for Netlify deployment
   plugins: [
-    react(), // ✅ stable React plugin (NO SWC)
+    react(), // ✅ Keep only the React plugin
   ],
   build: {
     assetsDir: "assets",
