@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // ← Add this
+import { Link } from "react-router-dom";
 import aboutImage from "../assets/About.jpg";
 
 const About: React.FC = () => {
@@ -26,17 +26,17 @@ const About: React.FC = () => {
             </h2>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-gray-700">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
+              Meeny’s Kitchen & Grill is where cultures meet in the kitchen.
+              We bring together the deep, comforting flavours of Caribbean
+              cooking with the rich spices and soul of Asian cuisine — creating
+              dishes that feel both familiar and exciting.
             </p>
 
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-gray-700">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum.
+              Every meal is prepared with care, balance, and intention. From our
+              signature Blasian boxes to our made-to-order mains, we focus on
+              quality ingredients, bold seasoning, and food that’s meant to be
+              enjoyed, shared, and remembered.
             </p>
 
             {/* CTA */}
