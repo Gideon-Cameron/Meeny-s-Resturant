@@ -94,7 +94,7 @@ const CartPopup: React.FC = () => {
           </button>
         </div>
 
-        {/* ORDER TYPE */}
+        {/* ORDER type*/}
         <div className="mb-6 space-y-2">
           <div className="font-medium text-gray-800">Order Type</div>
 
