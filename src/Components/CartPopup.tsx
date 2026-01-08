@@ -64,7 +64,6 @@ const CartPopup: React.FC = () => {
         phone: phone.trim() || null,
       });
   
-      // 🔔 THIS is what was missing
       window.dispatchEvent(new Event("order-success"));
   
       clearCart();

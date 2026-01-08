@@ -8,7 +8,7 @@ const About: React.FC = () => {
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           
-          {/* LEFT: IMAGE */}
+          {/* LEFT IMAGE */}
           <div className="flex justify-center lg:justify-start">
             <img
               src={aboutImage}
@@ -17,7 +17,7 @@ const About: React.FC = () => {
             />
           </div>
 
-          {/* RIGHT: TEXT */}
+          {/* RIGHT TEXT */}
           <div>
             <h2 className="text-4xl font-extrabold text-gray-900">
               BIG TASTE. BOLD LAYERS.
