@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
 
   return (
     <>
-      {/* HERO SECTION */}
+      {/* THE HERO SECTION */}
       <section className="w-full bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
