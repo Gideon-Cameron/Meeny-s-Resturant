@@ -10,6 +10,7 @@ import CartBar from "./Components/CartBar";
 import Location from "./Components/Location";
 
 import Menu from "./pages/Menu";
+import Help from "./pages/Help"; // ✅ ADD THIS
 
 import { CartProvider } from "./context/CartContext";
 import { OrderProvider } from "./context/OrderContext";
@@ -40,8 +41,8 @@ const App = () => {
             {/* MENU PAGE */}
             <Route path="/menu" element={<Menu />} />
 
-            {/* HELP PAGE (later) */}
-            {/* <Route path="/help" element={<Help />} /> */}
+            {/* HELP PAGE */}
+            <Route path="/help" element={<Help />} />
           </Routes>
 
           {/* GLOBAL CART UI */}

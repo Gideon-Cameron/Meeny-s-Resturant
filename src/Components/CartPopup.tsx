@@ -50,9 +50,9 @@ const CartPopup: React.FC = () => {
 
   const handleConfirm = async () => {
     if (isSubmitting) return;
-
+  
     setIsSubmitting(true);
-
+  
     try {
       await createOrder({
         type: orderType,
@@ -63,7 +63,10 @@ const CartPopup: React.FC = () => {
         address: orderType === "delivery" ? address : null,
         phone: phone.trim() || null,
       });
-
+  
+      // 🔔 THIS is what was missing
+      window.dispatchEvent(new Event("order-success"));
+  
       clearCart();
       closeCart();
     } catch (error) {
@@ -73,6 +76,7 @@ const CartPopup: React.FC = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center">
