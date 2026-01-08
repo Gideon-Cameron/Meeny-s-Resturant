@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import heroImage from "../assets/Hero.jpg";
+import heroImage from "../assets/hero.jpg";
 import popupImage from "../assets/Popup.jpg";
 
 const Hero: React.FC = () => {
