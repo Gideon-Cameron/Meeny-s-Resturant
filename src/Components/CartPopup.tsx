@@ -50,9 +50,9 @@ const CartPopup: React.FC = () => {
 
   const handleConfirm = async () => {
     if (isSubmitting) return;
-  
+
     setIsSubmitting(true);
-  
+
     try {
       await createOrder({
         type: orderType,
@@ -63,9 +63,9 @@ const CartPopup: React.FC = () => {
         address: orderType === "delivery" ? address : null,
         phone: phone.trim() || null,
       });
-  
+
       window.dispatchEvent(new Event("order-success"));
-  
+
       clearCart();
       closeCart();
     } catch (error) {
@@ -75,13 +75,12 @@ const CartPopup: React.FC = () => {
       setIsSubmitting(false);
     }
   };
-  
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center overflow-y-auto p-4">
       <div className="absolute inset-0" onClick={closeCart} />
 
-      <div className="relative w-full max-w-md rounded-t-2xl bg-white p-6 shadow-xl sm:rounded-2xl">
+      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-t-2xl bg-white p-6 shadow-xl sm:rounded-2xl">
         {/* HEADER */}
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-xl font-bold text-gray-900">Confirm Your Order</h2>
@@ -94,7 +93,7 @@ const CartPopup: React.FC = () => {
           </button>
         </div>
 
-        {/* ORDER type*/}
+        {/* ORDER TYPE */}
         <div className="mb-6 space-y-2">
           <div className="font-medium text-gray-800">Order Type</div>
 
@@ -118,7 +117,6 @@ const CartPopup: React.FC = () => {
 
           {orderType === "delivery" && (
             <>
-              {/* ⚠️ Northampton warning */}
               <div className="mt-2 rounded-md bg-yellow-50 border border-yellow-200 p-3 text-sm text-yellow-800">
                 🚚 Delivery is available <strong>only within Northampton</strong>.
                 Orders outside this area may be cancelled.
